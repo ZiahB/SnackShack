@@ -5,7 +5,246 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SOESNACKS Register</title>
   <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles/style.css" />
+  <style>
+    :root {
+      --purple: #a855f7;
+      --purple-dark: #7e22ce;
+      --black: #111;
+      --gray: #333;
+      --white: #fff;
+      --yellow: #facc15;
+    }
+
+    body {
+      font-family: "Comic Neue", cursive;
+      background: linear-gradient(135deg, var(--purple-dark), var(--black));
+      margin: 0;
+      color: var(--white);
+      font-size: 1.5rem;
+      overflow-x: hidden;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="32" width="32"><text y="24" font-size="24">🍬</text></svg>') 16 16, auto;
+    }
+
+    header {
+      background: var(--yellow);
+      color: var(--black);
+      text-align: center;
+      padding: 30px 10px;
+      font-size: 2.6em;
+      font-weight: 700;
+      border-bottom: 6px solid var(--purple);
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    header span {
+      display: block;
+      font-size: 0.5em;
+      color: var(--purple-dark);
+      margin-top: 5px;
+    }
+
+    .register-container {
+      max-width: 960px;
+      margin: 40px auto;
+      background: #222;
+      padding: 30px 40px;
+      border-radius: 30px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+      border: 4px solid var(--purple);
+    }
+
+    h2, h3, h4 {
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 700;
+      color: var(--yellow);
+      text-shadow: 0 0 8px var(--yellow);
+    }
+
+    .menu-section, .donation-section {
+      margin-bottom: 40px;
+    }
+
+    .section-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 14px;
+      justify-items: center;
+    }
+
+    .item-btn, .donate-btn {
+      background: var(--purple-dark);
+      color: var(--white);
+      border-radius: 20px;
+      border: 3px solid var(--yellow);
+      padding: 12px 8px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 120px;
+      height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 5px var(--yellow), 0 0 10px var(--yellow);
+    }
+
+    .item-btn:hover, .donate-btn:hover {
+      background: var(--purple);
+      transform: scale(1.05);
+      box-shadow: 0 0 8px var(--yellow), 0 0 16px var(--yellow);
+    }
+
+    .emoji {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .item-name {
+      margin-bottom: 5px;
+    }
+
+    .price {
+      font-size: 1rem;
+      color: var(--yellow);
+      text-shadow: 0 0 5px var(--yellow);
+    }
+
+    #order-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px 0;
+      max-height: 180px;
+      overflow-y: auto;
+      border: 2px solid var(--purple);
+      border-radius: 15px;
+      background: var(--gray);
+    }
+
+    #order-list li {
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--yellow);
+      font-weight: 700;
+      font-size: 1.4rem;
+      border-bottom: 1px solid var(--purple);
+    }
+
+    .remove-btn {
+      background: var(--yellow);
+      color: var(--black);
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .total-display {
+      text-align: right;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--yellow);
+      margin-bottom: 15px;
+    }
+
+    .payment-section {
+      text-align: right;
+      font-size: 1.4rem;
+      color: var(--yellow);
+      margin: 10px 0 25px 0;
+    }
+
+    .payment-section input {
+      width: 120px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 2px solid var(--purple);
+      background: var(--gray);
+      color: var(--yellow);
+      font-size: 1.2rem;
+      text-align: right;
+    }
+
+    .btn-action, #reset-btn {
+      background: var(--yellow);
+      border: none;
+      border-radius: 30px;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--black);
+      padding: 15px 25px;
+      cursor: pointer;
+      width: 100%;
+      max-width: 320px;
+      display: block;
+      margin: 0 auto 30px auto;
+      box-shadow: 0 8px 20px rgba(250, 204, 21, 0.8);
+    }
+
+    .summary, .daily-summary {
+      background: var(--gray);
+      padding: 20px 25px;
+      border-radius: 20px;
+      border: 3px solid var(--purple);
+      max-width: 600px;
+      margin: 0 auto 20px auto;
+      font-size: 1.2rem;
+      color: var(--yellow);
+      text-align: center;
+    }
+
+    #daily-items-summary {
+      background: var(--gray);
+      padding: 15px 20px;
+      border-radius: 20px;
+      border: 3px solid var(--purple);
+      max-width: 600px;
+      margin: 0 auto 40px auto;
+      font-size: 1.2rem;
+      color: var(--yellow);
+      text-align: left;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      background: rgba(0, 0, 0, 0.6);
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .modal-content {
+      background: var(--gray);
+      padding: 30px 40px;
+      border-radius: 25px;
+      border: 4px solid var(--purple);
+      box-shadow: 0 8px 25px rgba(168, 85, 247, 0.8);
+      text-align: center;
+      color: var(--yellow);
+      font-size: 2rem;
+    }
+
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      z-index: 9998;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -15,142 +254,131 @@
 
   <div class="register-container">
     <h2>Tap a Snack to Add to Your Order!</h2>
-    <div id="menu-sections">
-      <!-- Sections will be generated by JS -->
+    <div id="menu-sections"></div>
+
+    <h3>Donations</h3>
+    <div class="donation-section">
+      <div class="section-buttons" id="donation-buttons"></div>
     </div>
 
     <h3>Current Order</h3>
     <ul id="order-list"></ul>
     <p class="total-display"><strong>Total:</strong> $<span id="order-total">0.00</span></p>
 
-    <button class="btn-action" id="complete-sale-btn" onclick="completeSale()">🎉 Complete Sale</button>
-
-    <div class="summary">
-      <h3>Today's Snack Shack Summary</h3>
-      <p><strong>Total Sales:</strong> $<span id="daily-sales">0.00</span></p>
-      <p><strong>Orders Completed:</strong> <span id="order-count">0</span></p>
-      <p><strong>Money Made Today:</strong> $<span id="money-made">0.00</span></p>
-      <h4>Items Sold:</h4>
-      <ul id="items-sold-list"></ul>
-      <button class="btn-reset" onclick="resetSales()">🔄 Reset Day</button>
+    <div class="payment-section">
+      <label><strong>Amount Given (optional):</strong></label>
+      <input type="number" id="amount-given" placeholder="Enter amount" step="0.01" />
+      <p><strong>Change Due:</strong> $<span id="change-due">0.00</span></p>
     </div>
+
+    <button class="btn-action" id="checkout-btn">Checkout</button>
+    <button id="reset-btn">Reset Daily Totals</button>
+
+    <div class="summary" id="summary"></div>
+    <div class="daily-summary" id="daily-summary">Daily Total: $0.00</div>
+    <div id="daily-items-summary"><strong>Daily Items Bought:</strong><br>None</div>
   </div>
 
-  <footer>
-    © 2025 <strong>SOESNACKS</strong> | A Sweet Project by <strong>Scholars of Excellence</strong>
-    <br />
-    <small style="color:#aaa; font-size:0.9em;">Website made by <strong>Keziah Bester</strong> 🍭</small>
-  </footer>
+  <footer>© 2025 SOESNACKS</footer>
 
-  <!-- Centered Pop-up Modal -->
-  <div id="popup" class="modal">
+  <div class="modal" id="thankyou-modal">
     <div class="modal-content">
-      <h3>🎉 Sale Completed!</h3>
-      <p>Amount Due: $<span id="popup-total"></span></p>
-      <button class="btn-action" onclick="closePopup()">OK</button>
+      🎉 Thank you for your order! 🎉
     </div>
   </div>
 
   <canvas id="confetti-canvas"></canvas>
 
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
     const menuSections = [
-      {
-        title: "Chips",
-        items: [
-          { name: "Walking Taco", emoji: "🌮", price: 6.00 },
-          { name: "Chips and Meat", emoji: "🍖", price: 4.00 },
-          { name: "Chips and Cheese", emoji: "🧀", price: 2.00 },
-          { name: "Chips", emoji: "🍟", price: 1.00 }
-        ]
-      },
-      {
-        title: "Candy",
-        items: [
-          { name: "Skittles", emoji: "🌈", price: 2.50 },
-          { name: "Starburst", emoji: "⭐", price: 2.50 },
-          { name: "Swedish Fish", emoji: "🐟", price: 2.50 },
-          { name: "Sour Patch Kids", emoji: "😝", price: 2.50 },
-          { name: "Air Head Extremes", emoji: "🌀", price: 2.50 }
-        ]
-      },
-      {
-        title: "Sweet Treats",
-        items: [
-          { name: "Honey Bun", emoji: "🍯", price: 2.00 },
-          { name: "Cosmic Brownie", emoji: "🍫", price: 2.00 },
-          { name: "Blow Pop", emoji: "🍭", price: 0.50 }
-        ]
-      },
-      {
-        title: "Drinks",
-        items: [
-          { name: "Minute Maid", emoji: "🍹", price: 2.00 },
-          { name: "Gatorade", emoji: "🏃‍♂️", price: 2.00 },
-          { name: "MSCR Juice", emoji: "🧃", price: 2.00 },
-          { name: "Capri Sun", emoji: "☀️", price: 2.00 },
-          { name: "Water", emoji: "💧", price: 1.00 },
-          { name: "Can Sodas", emoji: "🥤", price: 2.50 }
-        ]
-      }
+      { title: "Chips", items: [
+        { name: "Walking Taco", emoji: "🌮", price: 6 },
+        { name: "Chips and Meat", emoji: "🍖", price: 4 },
+        { name: "Chips and Cheese", emoji: "🧀", price: 2 },
+        { name: "Chips", emoji: "🛍️", price: 1 }
+      ]},
+      { title: "Candy", items: [
+        { name: "Skittles", emoji: "🌈", price: 2.5 },
+        { name: "Starburst", emoji: "⭐", price: 2.5 },
+        { name: "Swedish Fish", emoji: "🐟", price: 2.5 },
+        { name: "Sour Patch Kids", emoji: "😝", price: 2.5 },
+        { name: "Air Head Extremes", emoji: "🌀", price: 2.5 },
+        { name: "Other", emoji: "❓", price: 2.5 }
+      ]},
+      { title: "Sweet Treats", items: [
+        { name: "Honey Bun", emoji: "🍯", price: 2 },
+        { name: "Cosmic Brownie", emoji: "🍫", price: 2 },
+        { name: "Blow Pop", emoji: "🍭", price: 0.5 }
+      ]},
+      { title: "Drinks", items: [
+        { name: "Water", emoji: "💧", price: 1 },
+        { name: "Soda", emoji: "🥤", price: 2 },
+        { name: "Capri Sun", emoji: "🌞", price: 1.5 },
+        { name: "MSCR Juice", emoji: "🧃", price: 2 }
+      ]}
     ];
+
+    const donationAmounts = [1, 5, 10, 20];
+
+    let order = [];
+    let dailyTotal = 0;
+    let dailyItems = {};
 
     const menuContainer = document.getElementById("menu-sections");
     const orderList = document.getElementById("order-list");
     const orderTotalDisplay = document.getElementById("order-total");
-    const dailySalesDisplay = document.getElementById("daily-sales");
-    const orderCountDisplay = document.getElementById("order-count");
-    const moneyMadeDisplay = document.getElementById("money-made");
-    const itemsSoldList = document.getElementById("items-sold-list");
+    const changeDueDisplay = document.getElementById("change-due");
+    const amountGivenInput = document.getElementById("amount-given");
+    const checkoutBtn = document.getElementById("checkout-btn");
+    const summaryDisplay = document.getElementById("summary");
+    const dailyTotalDisplay = document.getElementById("daily-summary");
+    const dailyItemsDisplay = document.getElementById("daily-items-summary");
+    const donationButtonsContainer = document.getElementById("donation-buttons");
+    const resetBtn = document.getElementById("reset-btn");
 
-    let order = [];
-    let dailySales = parseFloat(localStorage.getItem("dailySales")) || 0;
-    let orderCount = parseInt(localStorage.getItem("orderCount")) || 0;
-    let moneyMade = parseFloat(localStorage.getItem("moneyMade")) || 0;
-    let itemsSold = JSON.parse(localStorage.getItem("itemsSold")) || {};
+    function createMenu() {
+      menuSections.forEach(section => {
+        const secDiv = document.createElement("div");
+        secDiv.className = "menu-section";
 
-    updateSummary();
+        const title = document.createElement("h3");
+        title.textContent = section.title;
+        secDiv.appendChild(title);
 
-    menuSections.forEach((section) => {
-      const sectionDiv = document.createElement("div");
-      sectionDiv.className = "menu-section";
+        const btnContainer = document.createElement("div");
+        btnContainer.className = "section-buttons";
 
-      const h3 = document.createElement("h3");
-      h3.textContent = section.title;
-      sectionDiv.appendChild(h3);
+        section.items.forEach(item => {
+          const btn = document.createElement("button");
+          btn.className = "item-btn";
+          btn.innerHTML = `<div class="emoji">${item.emoji}</div><div class="item-name">${item.name}</div><div class="price">$${item.price}</div>`;
+          btn.addEventListener("click", () => addItem(item));
+          btnContainer.appendChild(btn);
+        });
 
-      const buttonsDiv = document.createElement("div");
-      buttonsDiv.className = "section-buttons";
-
-      section.items.forEach((item) => {
-        const btn = document.createElement("button");
-        btn.className = "item-btn";
-        btn.innerHTML = `
-          <div class="emoji">${item.emoji}</div>
-          <div class="item-name">${item.name}</div>
-          <div class="price">$${item.price.toFixed(2)}</div>
-        `;
-        btn.onclick = () => {
-          growEmoji(btn.querySelector(".emoji"));
-          addToOrder(item);
-        };
-        buttonsDiv.appendChild(btn);
+        secDiv.appendChild(btnContainer);
+        menuContainer.appendChild(secDiv);
       });
-
-      sectionDiv.appendChild(buttonsDiv);
-      menuContainer.appendChild(sectionDiv);
-    });
-
-    function growEmoji(emojiEl) {
-      emojiEl.style.transition = "transform 0.3s";
-      emojiEl.style.transform = "scale(1.5)";
-      setTimeout(() => {
-        emojiEl.style.transform = "scale(1)";
-      }, 300);
     }
 
-    function addToOrder(item) {
+    function createDonationButtons() {
+      donationAmounts.forEach(amount => {
+        const btn = document.createElement("button");
+        btn.className = "donate-btn";
+        btn.textContent = `💛 $${amount}`;
+        btn.addEventListener("click", () => addItem({ name: `Donation $${amount}`, emoji: "💛", price: amount }));
+        donationButtonsContainer.appendChild(btn);
+      });
+    }
+
+    function addItem(item) {
       order.push(item);
+      updateOrder();
+    }
+
+    function removeItem(index) {
+      order.splice(index, 1);
       updateOrder();
     }
 
@@ -160,129 +388,74 @@
       order.forEach((item, i) => {
         total += item.price;
         const li = document.createElement("li");
-        li.innerHTML = `
-          <span>${item.emoji} ${item.name} — $${item.price.toFixed(2)}</span>
-          <button class="remove-btn" onclick="removeItem(${i})">x</button>
-        `;
+        li.innerHTML = `<span>${item.emoji} ${item.name}</span><span>$${item.price.toFixed(2)}</span>`;
+        const removeBtn = document.createElement("button");
+        removeBtn.className = "remove-btn";
+        removeBtn.textContent = "×";
+        removeBtn.addEventListener("click", () => removeItem(i));
+        li.appendChild(removeBtn);
         orderList.appendChild(li);
       });
       orderTotalDisplay.textContent = total.toFixed(2);
+      calculateChange();
     }
 
-    function removeItem(index) {
-      order.splice(index, 1);
-      updateOrder();
-    }
-
-    function completeSale() {
-      const total = parseFloat(orderTotalDisplay.textContent);
-      if (order.length === 0) {
-        alert("No snacks in your order!");
-        return;
+    function calculateChange() {
+      const amountGiven = parseFloat(amountGivenInput.value);
+      const total = order.reduce((sum, item) => sum + item.price, 0);
+      if (!isNaN(amountGiven) && amountGiven >= total) {
+        changeDueDisplay.textContent = (amountGiven - total).toFixed(2);
+      } else {
+        changeDueDisplay.textContent = "0.00";
       }
-      dailySales += total;
-      moneyMade += total;
-      orderCount++;
+    }
 
-      order.forEach((item) => {
-        itemsSold[item.name] = (itemsSold[item.name] || 0) + 1;
+    amountGivenInput.addEventListener("input", calculateChange);
+
+    checkoutBtn.addEventListener("click", () => {
+      if (order.length === 0) return;
+
+      const total = order.reduce((sum, item) => sum + item.price, 0);
+      dailyTotal += total;
+      order.forEach(item => {
+        if (!dailyItems[item.name]) dailyItems[item.name] = 0;
+        dailyItems[item.name]++;
       });
 
-      localStorage.setItem("dailySales", dailySales.toFixed(2));
-      localStorage.setItem("orderCount", orderCount);
-      localStorage.setItem("moneyMade", moneyMade.toFixed(2));
-      localStorage.setItem("itemsSold", JSON.stringify(itemsSold));
+      summaryDisplay.innerHTML = `Order Total: $${total.toFixed(2)}<br>Items: ${order.map(i => i.name).join(", ")}`;
+      dailyTotalDisplay.textContent = `Daily Total: $${dailyTotal.toFixed(2)}`;
+      dailyItemsDisplay.innerHTML = `<strong>Daily Items Bought:</strong><br>${Object.entries(dailyItems).map(([k,v]) => `${k}: ${v}`).join("<br>")}`;
 
-      document.getElementById("popup-total").textContent = total.toFixed(2);
-      document.getElementById("popup").style.display = "flex";
-      startConfetti();
-
+      showThankYou();
       order = [];
       updateOrder();
-      updateSummary();
-    }
+      amountGivenInput.value = "";
+    });
 
-    function closePopup() {
-      document.getElementById("popup").style.display = "none";
-    }
+    resetBtn.addEventListener("click", () => {
+      dailyTotal = 0;
+      dailyItems = {};
+      dailyTotalDisplay.textContent = `Daily Total: $0.00`;
+      dailyItemsDisplay.innerHTML = `<strong>Daily Items Bought:</strong><br>None`;
+      summaryDisplay.innerHTML = "";
+    });
 
-    function updateSummary() {
-      dailySalesDisplay.textContent = dailySales.toFixed(2);
-      orderCountDisplay.textContent = orderCount;
-      moneyMadeDisplay.textContent = moneyMade.toFixed(2);
-
-      itemsSoldList.innerHTML = "";
-      for (const [itemName, count] of Object.entries(itemsSold)) {
-        const li = document.createElement("li");
-        li.textContent = `${itemName}: ${count}`;
-        itemsSoldList.appendChild(li);
-      }
-    }
-
-    function resetSales() {
-      if (confirm("Reset all daily data?")) {
-        dailySales = 0;
-        orderCount = 0;
-        moneyMade = 0;
-        itemsSold = {};
-
-        localStorage.setItem("dailySales", 0);
-        localStorage.setItem("orderCount", 0);
-        localStorage.setItem("moneyMade", 0);
-        localStorage.setItem("itemsSold", JSON.stringify(itemsSold));
-
-        updateSummary();
-      }
-    }
-
-    // Confetti
-    const confettiCanvas = document.getElementById("confetti-canvas");
-    const ctx = confettiCanvas.getContext("2d");
-    let confettiElements = [];
-
-    function resizeCanvas() {
-      confettiCanvas.width = window.innerWidth;
-      confettiCanvas.height = window.innerHeight;
-    }
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
-
-    function startConfetti() {
-      confettiElements = [];
-      for (let i = 0; i < 150; i++) {
-        confettiElements.push({
-          x: Math.random() * confettiCanvas.width,
-          y: Math.random() * confettiCanvas.height - confettiCanvas.height,
-          r: Math.random() * 6 + 4,
-          d: Math.random() * 20 + 10,
-          color: `hsl(${Math.random() * 360}, 100%, 50%)`,
-          tilt: Math.random() * 10 - 10
-        });
-      }
-      requestAnimationFrame(drawConfetti);
-      setTimeout(() => confettiElements = [], 4000);
-    }
-
-    function drawConfetti() {
-      ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-      confettiElements.forEach((conf, i) => {
-        ctx.beginPath();
-        ctx.lineWidth = conf.r;
-        ctx.strokeStyle = conf.color;
-        ctx.moveTo(conf.x + conf.tilt + conf.r / 2, conf.y);
-        ctx.lineTo(conf.x + conf.tilt, conf.y + conf.tilt + conf.r / 2);
-        ctx.stroke();
-        conf.y += (Math.cos(conf.d) + 3 + conf.r / 2) / 2;
-        conf.x += Math.sin(conf.d);
-        if (conf.y > confettiCanvas.height) {
-          conf.y = -10;
-          conf.x = Math.random() * confettiCanvas.width;
-        }
+    function showThankYou() {
+      const modal = document.getElementById("thankyou-modal");
+      modal.style.display = "flex";
+      confetti({
+        particleCount: 200,
+        spread: 70,
+        origin: { y: 0.6 }
       });
-      if (confettiElements.length > 0) {
-        requestAnimationFrame(drawConfetti);
-      }
+      setTimeout(() => { modal.style.display = "none"; }, 2000);
     }
+
+    createMenu();
+    createDonationButtons();
   </script>
 </body>
 </html>
+
+
+
